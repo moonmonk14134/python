@@ -1,0 +1,147 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;\f2\fnil\fcharset0 HelveticaNeue;
+}
+{\colortbl;\red255\green255\blue255;\red104\green26\blue29;\red36\green38\blue41;\red43\green39\blue19;
+\red254\green244\blue139;\red0\green0\blue0;\red255\green255\blue255;\red38\green38\blue38;\red210\green0\blue53;
+\red52\green52\blue52;\red52\green52\blue52;}
+\margl1440\margr1440\vieww20060\viewh15440\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \
+
+\fs28 case 1
+\fs24 \
+
+\fs36 import boto3
+\fs24 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs36 \cf0 \CocoaLigature0 ec2 = boto3.client('ec2') \
+snapId=['snap-0d5a5a7366b9d0ba0']\
+ownerID=['071009882625']\
+snapshot_response = ec2.describe_snapshots(SnapshotIds=snapId) \
+\
+snapshot_response = \{\}\
+snapshot_response = ec2.describe_snapshots(SnapshotIds=snapId) \
+\
+for ss in ec2.describe_snapshots(SnapshotIds=snapId):\
+   ssId = ss[\cf2 \expnd0\expndtw0\kerning0
+\CocoaLigature1 'VolumeId'\cf3 ]\
+   ssownerId = \cf0 \kerning1\expnd0\expndtw0 \CocoaLigature0 ss['OwnerId']\cf3 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+   print (ssId)\
+    \cf4 \
+\cf0 \kerning1\expnd0\expndtw0 \CocoaLigature0 print snapshot_response['Snapshots']\
+\
+for k in snapshot_response['Snapshots']:\
+...     rec_SnapshotId = k['SnapshotId']\
+...     rec_StartTime =k['StartTime']\
+...     rec_Description = k['Description']\
+...     print ( rec_SnapshotId, rec_StartTime, rec_Description) \
+... \
+('snap-0d5a5a7366b9d0ba0', datetime.datetime(2017, 9, 27, 4, 1, 36, tzinfo=tzutc()), 'bk snap MongoDB-nonprod-ICP-401q 20170927_000101 vol-010543feaba27ea65')\
+\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \cb5 [\{u'Description': 'bk snap MongoDB-nonprod-ICP-401q 20170927_000101 vol-010543feaba27ea65', u'VolumeSize': 250, u'Tags': [\{u'Value': 'MongoDB-nonprod-ICP-401q', u'Key': 'Cluster'\}, \{u'Value': '20171027', u'Key': 'Expiration'\}, \{u'Value': 'BkSnapMongoDB-nonprod-ICP-401q20170927_000101vol-010543feaba27ea65', u'Key': 'Name'\}], u'Encrypted': True, u'VolumeId': 'vol-010543feaba27ea65', u'State': 'completed', u'KmsKeyId': 'arn:aws:kms:us-east-1:071009882625:key/b6a65cef-eb2c-47bd-a1b9-4c505f8f0fa5', u'StartTime': datetime.datetime(2017, 9, 27, 4, 1, 36, tzinfo=tzutc()), u'Progress': '100%', u'OwnerId': '071009882625', u'SnapshotId': 'snap-0d5a5a7366b9d0ba0'\}]\cb1 \
+\
+\
+\
+case 2\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0 \cf0 \CocoaLigature1 import boto3
+\fs24 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs36 \cf0 \CocoaLigature0 ec2 = boto3.client('ec2', region_name='us-east-1') \
+filters01 = [\
+\cf6 \cb7  \expnd0\expndtw0\kerning0
+\CocoaLigature1  \{'Name': 'tag-key', 'Values': ['Cluster']\},\
+\pard\pardeftab720\partightenfactor0
+\cf6   \{'Name': 'tag-value', 'Values': ['
+\f2 \cf10 \cb1 \outl0\strokewidth0 \strokec10 MongoDB-nonprod-ICP-401q'
+\f1 \cf6 \cb7 \outl0\strokewidth0 ]\},\
+]
+\fs28 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\fs36 \cf0 \cb1 \kerning1\expnd0\expndtw0 \CocoaLigature0 snapshot_response = \{\}\
+snapshot_response = ec2.describe_snapshots(\cf6 \cb7 \expnd0\expndtw0\kerning0
+\CocoaLigature1 Filters=filters01)\
+for kk in \cf0 \cb1 \kerning1\expnd0\expndtw0 \CocoaLigature0 snapshot_response['Snapshots']:\
+  rec_SnapshotId = kk['SnapshotId']\
+  rec_StartTime = kk['StartTime']\
+  rec_Tags = kk['Tags']\
+  print ( rec_SnapshotId, rec_StartTime,rec\cb7 _Tags)\cb1 \
+  TTag = dict( (el['Key'],el['Value']) for el in rec_Tags) \
+  \cb5 print (TTag['Expiration'])\cb1 \
+  \
+  \
+case 3\
+\pard\pardeftab720\partightenfactor0
+
+\fs28 \cf8 \cb7 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\fs36 \cf0 \cb1 import boto3\
+import datetime\
+import collections\
+\
+ec2 = boto3.client('ec2', region_name='us-east-1') \
+filters02 = [\
+ \expnd0\expndtw0\kerning0
+\CocoaLigature1  \{'Name': 'tag-key', 'Values': ['Expiration']\},\
+\pard\pardeftab720\partightenfactor0
+\cf0   \{'Name': 'tag-value', 'Values': ['
+\f2 \cf11 20171027'
+\f1 \cf0 ]\},\
+]\kerning1\expnd0\expndtw0 \CocoaLigature0 \
+snapshot_response = \{\}\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 snapshot_response = ec2.describe_snapshots(\expnd0\expndtw0\kerning0
+\CocoaLigature1 Filters=filters02)\
+snapid_list= []\
+for kk in \kerning1\expnd0\expndtw0 \CocoaLigature0 snapshot_response['Snapshots']:\
+  rec_SnapshotId = kk['SnapshotId']\
+  print (rec_SnapshotId)\
+  snapid_list.append(rec_SnapshotId)\
+\
+print snapid_list\
+\
+case 4 \
+import boto3\
+import datetime\
+\
+expired_date = datetime.datetime.now().strftime("%Y%m%d")\
+ec2 = boto3.client('ec2', region_name='us-east-1') \
+\
+filters03 = [\
+ \expnd0\expndtw0\kerning0
+\CocoaLigature1  \{'Name': 'tag-key', 'Values': ['\kerning1\expnd0\expndtw0 \CocoaLigature0 Expiration'\expnd0\expndtw0\kerning0
+\CocoaLigature1 ]\},\
+\pard\pardeftab720\partightenfactor0
+\cf0   \{'Name': 'tag-value', 'Values': [\kerning1\expnd0\expndtw0 \CocoaLigature0 expired_date\expnd0\expndtw0\kerning0
+\CocoaLigature1 ]\},\
+]\kerning1\expnd0\expndtw0 \CocoaLigature0 \
+snapshot_response = \{\}\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \
+snapshot_response = ec2.describe_snapshots(\expnd0\expndtw0\kerning0
+\CocoaLigature1 Filters=filters03)\
+snapid_list= []\
+for kk in \kerning1\expnd0\expndtw0 \CocoaLigature0 snapshot_response['Snapshots']:\
+  rec_SnapshotId = kk['SnapshotId']\
+  snapid_list.append(rec_SnapshotId)\
+\
+del_snap_no = len(snapid_list)\
+print (" There are \{\} snapshots expired. ".format(del_snap_no) )\
+for snapID in snapid_list:\
+  print ("\cf6 \cb7 \expnd0\expndtw0\kerning0
+\CocoaLigature1 ec2.delete_snapshot(SnapshotId = ['\{\}'])".format(snapID) ) \
+  \cf0 \cb1 ec2.delete_snapshot(SnapshotId = snapID)\
+\
+}
