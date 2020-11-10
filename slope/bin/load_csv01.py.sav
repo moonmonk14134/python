@@ -1,0 +1,62 @@
+import csv
+import MySQLdb
+
+##mydb = mysql.connector.connect(
+##  host = '127.0.0.1',
+##  user = 'stocks',
+##  passwd = 'Welcome123',
+##  database = 'lei'
+##)
+##mycursor = mydb.cursor()
+with open('/Users/jchang/stockfetcher/slope/data/slope15_13_20201029.csv', 'r') as csvfile:
+    dataframe = csv.Dictreader(csvfile )
+    print(dataframe)
+
+    for row in dataframe:
+        (v_symbol          ,
+        v_close           ,
+        v_d_chg_pct       ,
+        v_vol             ,
+        v_ema7            ,
+        v_ema12           ,
+        v_ema20           ,
+        v_ema60           ,
+        v_ema120          ,
+        v_ema144          ,
+        v_ema169          ,
+        v_ma20            ,
+        v_ma60            ,
+        v_ma120           ,
+        v_no_slp_12       ,
+        v_no_slp_20       ,
+        v_day20_slp_ema12 ,
+        v_day20_slp_ema20 
+        ) = ("%s", "%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s")        
+        print('Sym: '+ v_symbol +', Close: '+ v_close)
+
+##     mycursor.execute('INSERT INTO covid_per_day_per_country (
+## 	symbol          ,
+## 	Td_date         ,
+## 	slp_lvl         ,
+## 	close           ,
+## 	d_chg_pct       ,
+## 	vol             ,
+## 	ema7            ,
+## 	ema12           ,
+## 	ema20           ,
+## 	ema60           ,
+## 	ema120          ,
+## 	ema144          ,
+## 	ema169          ,
+## 	ma20            ,
+## 	ma60            ,
+## 	ma120           ,
+## 	no_slp_12       ,
+## 	no_slp_20       ,
+## 	day20_slp_ema12 ,
+## 	day20_slp_ema20 ,
+##  	memo            )            
+##        VALUES("%s", "%s", "%s", "%s", "%s", "%s")', row)
+##
+##mydb.commit()
+##cursor.close()

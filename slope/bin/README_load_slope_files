@@ -1,0 +1,14 @@
+##
+## the order of running 3 daily load_slp*.py
+
+name stockfetcher output file as slp10_7_YYYY-MM-DD.csv/slp10_13_/slp_15_13
+
+cd ~/stockfetcher/slope/data
+mv ~/Downloads/slp*.csv  ./
+cd ~/stockfetcher/slope/bin 
+python load_slp10_7_csv.py YYYY-MM-DD
+python load_slp10_13_csv.py YYYY-MM-DD
+python load_slp15_13_csv.py YYYY-MM-DD
+
+mv ~/stockfetcher/slope/data/*csv ~/stockfetcher/slope/arch/
+

@@ -1,0 +1,10 @@
+
+rename stockstretch outputfiles sp500_stat_data1_2020-11-DD.csv  #_data1_/_data2_/_data3_
+
+cd ~/stockfetcher/slope/data
+mv ~/Downloads/sp500_stat_data*.csv  ./
+mv ~/Downloads/target01_stat_data*.csv  ./
+cd ~/stockfetcher/slope/bin
+python load_sp500_stat_data.py 2020-11-05
+
+
