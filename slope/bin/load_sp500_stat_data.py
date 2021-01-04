@@ -5,13 +5,13 @@ import os
 import pathlib
 
 
-def arch_files():
+def arch_files(patfile):
   p = pathlib.Path(__file__)
   ppath = p.absolute().parent
   pppath = str(ppath)
   mv_spath = pppath +  "/../data/"
   mv_dpath = pppath +  "/../arch/"
-  cmd_mv = "mv "+mv_spath+"*.csv "+mv_dpath
+  cmd_mv = "mv "+ mv_spath + patfile +" "+ mv_dpath
   os.system(cmd_mv)
   print(cmd_mv)
 
@@ -96,7 +96,7 @@ def load_target_stats(fnamepreL):
                         v_ma20,v_ma60,v_ma120,v_no_slp_12,v_no_slp_20,v_day20_slp_ema12,v_day20_slp_ema20,v_ded20,v_ded60,v_ded120, '' ) 
             query01 = ("INSERT INTO target01_stat_data ( symbol, Td_date, close, d_chg_pct, vol," 
  	            "ema7, ema12, ema20, ema60, ema120, ema144, ema169, ma20, ma60, ma120, " 
- 	            "no_slp_12, no_slp_20, day20_slp_ema12, day20_slp_ema20) " 
+ 	            "no_slp_12, no_slp_20, day20_slp_ema12, day20_slp_ema20, ded20, ded60, ded120) " 
                     "VALUES( %s, %s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s)"
                     "ON DUPLICATE KEY UPDATE target01_stat_data.memo = %s" ) 
             ## for Debug purpose
@@ -135,7 +135,8 @@ def main():
     mydb.commit()
     mydb.close()
 
-    arch_files()
+    arch_files(f_pattern01)
+    arch_files(f_pattern02)
 
 if __name__ == "__main__" :
     main()
